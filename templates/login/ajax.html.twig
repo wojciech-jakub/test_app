@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %} 
+{% block javascripts %} 
+   <script language = "javascript" 
+      src = "https://code.jquery.com/jquery-2.2.4.min.js"></script> 
+   
+   <script language = "javascript">  
+      $(document).ready(function(){   
+         $("#fileToUpload").on("click", function(event){  
+            $.ajax({  
+               url:        "/student/ajax",  
+               method:       'POST',   
+               dataType:   'json',  
+               
+               success: function(data, status) {  
+                   
+                    alert('Ajaasdasdasd');  
+               }, 
+               failed: function($data,status){
+                  alert('fsafsafas');
+               } 
+            });  
+         });  
+      });  
+   </script> 
+{% endblock %}  
+
+
+{% block body %} 
+<html>
+<body>
+
+  <input type="file" name="pic" accept="image/*">
+  <input type="submit" id="fileToUpload">
+
+</body>
+</html>
+{% endblock %} 

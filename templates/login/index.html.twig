@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ controller_name }}{% endblock %}
+
+{% block body %}
+
+
+<div class="example-wrapper">
+    <form method="POST" action="/login">
+        <input type="text" name="login" placeholder="login"/>
+        <input type="password" name="password" placeholder="password"/>
+        <input type="hidden" value="1" name="log"/>
+        <button>Login</button>
+    </form>
+</div>
+{% endblock %}
