@@ -29,10 +29,11 @@ class UploadController extends AbstractController
     public function index(Request $request)
     {
         $document = new Document();
-
+   
         $file = $request->files->get('upload');
-
+     
         if($file){
+               
             $name = $request->request->get('username');
             $destination = $this->getParameter('photos_directory');
             $filename = uniqid().".".$file->getClientOriginalExtension();
