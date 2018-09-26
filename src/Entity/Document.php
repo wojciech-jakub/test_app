@@ -48,6 +48,28 @@ class Document
          $this->file = $file;
      }
  
+     public function getPath(): ?string
+    {
+        return $this->photo;
+    }
+
+    public function setPath(string $path): self
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+     public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
      /**
       * Get file.
       *
@@ -86,23 +108,18 @@ class Document
     }
     public function upload($destination)
     {
-    // the file property can be empty if the field is not required
-    if ($this->getFile() === null) {
-        return;
-    }
-
-    // use the original file name here but you should
-    // sanitize it at least to avoid any security issues
-
-    // move takes the target directory and then the
-    // target filename to move to
-    $this->getFile()->move($destination, $this->getFile()->getClientOriginalName());
-
-
-    // set the path property to the filename where you've saved the file
-    $this->path = $this->getFile()->getClientOriginalName();
-
-    // clean up the file property as you won't need it anymore
-    $this->file = null;
+        // the file property can be empty if the field is not required
+        if ($this->getFile() === null) {
+            return;
+        }
+        // use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        // move takes the target directory and then the
+        // target filename to move to
+        $this->getFile()->move($destination, $this->getFile()->getClientOriginalName());
+        // set the path property to the filename where you've saved the file
+        $this->path = $this->getFile()->getClientOriginalName();
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
 }
 }

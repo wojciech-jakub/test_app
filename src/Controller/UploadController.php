@@ -15,6 +15,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\FileType; 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;  
+use Symfony\Component\HttpFoundation\JsonResponse;
+
+
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
@@ -25,24 +28,26 @@ class UploadController extends AbstractController
      */
     public function index(Request $request)
     {
-    $document = new Document();
-    $form = $this->createFormBuilder($document)
-        ->add('name', TextType::class) 
-        ->add('file', FileType::class, array('label' => 'Photo (png, jpeg)')) 
-        ->getForm();
-    $form->handleRequest($request);
-   
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
+        $document = new Document();
+
+        $file = $request->files->get('upload');
+
+        if($file){
+            $name = $request->request->get('username');
             $destination = $this->getParameter('photos_directory');
-            $document->upload($destination);
+            $filename = uniqid().".".$file->getClientOriginalExtension();
+            $path = $destination;
+            $file->move($path,$filename);
+            $em = $this->getDoctrine()->getManager();
+            $document->setName($name);
+            $document->setPath("/web/uploads/photo/".$filename);
             $em->persist($document);
             $em->flush();
-            return $this->redirectToRoute('upload');
+
+            return new JsonResponse($file);
         }
         return $this->render('upload/index.html.twig',[
-        'form' => $form->createView(),
-        'controller_name' => 'Upload files',
+            'controller_name' => 'Upload files',
         ]);
     }
 }
