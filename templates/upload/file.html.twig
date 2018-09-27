@@ -12,13 +12,16 @@
 <div class="example-wrapper">
     <table>
         <tr>
-            <th>User name<th>
-            <th>File<th>
+            <th>First name<th>
+            <th>Second name<th>
+            <th>Action<th>
         </tr>
     {% for document in documents %}
         <tr>
             <td>{{document.name}}<td>
-            <td><a href="/download/{{document.id}}"/>file</a><td>
+            <td>{{document.secondname}}</td>
+            <td><a href="/download/{{document.id}}"/>download</a><td>
+            <td><a href="/show/{{document.id}}"/>show</a><td>
         </tr>
     {% endfor %}
     </table>

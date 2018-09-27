@@ -25,6 +25,11 @@ class Document
      * @Assert\NotBlank
      */
     public $name;
+    /**
+    * @ORM\Column(type="string", length=255)
+    * @Assert\NotBlank
+    */
+    public $secondName;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -59,7 +64,7 @@ class Document
 
         return $this;
     }
-        public function getName(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -67,6 +72,17 @@ class Document
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+    public function getSecondName(): ?string
+    {
+        return $this->secondName;
+    }
+
+    public function setSecondName(string $secondName): self
+    {
+        $this->secondName = $secondName;
 
         return $this;
     }
