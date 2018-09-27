@@ -2,14 +2,11 @@
 
 {% block title %}{{ controller_name }}{% endblock %}
 
-{% block javascripts %} 
-
-
-<script language = "javascript">  
+{% block javascripts %}
+<script language = "javascript">
 function uploadAsynch(){
-        
-    var form = document.getElementById("myform");
 
+    var form = document.getElementById("myform");
     $.ajax({
         url:"/upload",
         data: new FormData(form),
@@ -17,21 +14,21 @@ function uploadAsynch(){
         contentType:false,
         processData:false,
         cache:false,
-        dataType:"json", 
+        dataType:"json",
+
         error:function(err){
             alert(err);
         },
         success:function(data){
-            alert(data);      
+            alert(data);
         },
         complete:function(){
             alert("Request finished.");
         }
     });
 }
-
-</script> 
-{% endblock %}  
+</script>
+{% endblock %}
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
@@ -40,8 +37,15 @@ function uploadAsynch(){
 <div class="example-wrapper">
     <form id="myform" method="post">
         <input type="text" name="username" />
-        <input type="file" name="upload"  accept="image/*"/>
+        <input type="file" name="upload" accept="image/png, image/jpeg, image/jpg""/>
         <input type="button" onclick="uploadAsynch()" value="submit"/>
+    </form>
+    <a href="/files">
+        <input type="button" value="Show all files" />
+    </a>
+    <form method="POST" action="/upload">
+        <input type="hidden" value="1" name="logout"/>
+        <button>Logout</button>
     </form>
 </div>
 
